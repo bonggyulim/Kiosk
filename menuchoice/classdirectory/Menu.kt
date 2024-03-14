@@ -8,6 +8,7 @@ class Menu {
         val price = price
         val number = number
         var count = 0
+        // 메뉴를 객체화 메뉴는 종류, 이름, 가격, 고유번호, 메뉴를 담은 횟수
 
         open fun printInfo(){
             println("$number. 종류 : $kind | $name | $price $")
