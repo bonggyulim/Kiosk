@@ -15,9 +15,9 @@ fun payMain() {
     while (true) {
         try {
             when (readLine()!!.toInt()){
-                1 -> totalPrice()
+                1 -> totalPrice()                           // 최종 결제시 totalPrice()로 이동
                 2 -> {
-                    Initialization.initialization(menuList)
+                    Initialization.initialization(menuList) // 장바구니를 초기화하는 함수
                     menuChoice()
                 }
                 else -> println("잘못된 숫자 입력")
