@@ -10,8 +10,8 @@ fun sideMenu() {
     menuList.get(7).printInfo()
     println("9. 결제하기")
     println("-1. 뒤로가기")
-    print(ShoppingBasket.list(menuList))                 // 현재까지 상품리스트 출력
-    println("${ShoppingBasket.price()} $ ")      // 현재까지 합계금액 출력
+    print(ShoppingBasket.list(menuList))
+    println("${ShoppingBasket.price()} $ ")
     while (true) {
         try {
             when (readLine()!!.toInt()) {
