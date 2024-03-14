@@ -8,9 +8,9 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.system.exitProcess
 
-var menuList = mutableListOf<Menu.TopMenu>()    // 메뉴를 담을 리스트
+var menuList = mutableListOf<Menu.TopMenu>()    // 메뉴객체를 담을 리스트
 
-fun init() {
+fun init() {    // init이 실행되면 객체를 생성해 리스트화 한다
     var bul = Menu.BugersMenu("햄버거", "불고기버거", 6, 1)
     var shrimp = Menu.BugersMenu("햄버거", "새우버거", 7, 2)
     var chicken = Menu.BugersMenu("햄버거", "치킨버거", 7, 3)
@@ -29,8 +29,8 @@ fun init() {
     menuList.add(cheeze)
 }
 
-fun main() {    // 메인화면
-    var mainJob = GlobalScope.launch {
+fun main() {
+    var mainJob = GlobalScope.launch {                              // 메인 코루틴
         init()
         println("안녕하세요 Bong버거입니다. 왼쪽의 번호를 입력하시면 진행됩니다.")
         println("0을 입력시 프로그램이 종료됩니다.")
@@ -51,26 +51,26 @@ fun main() {    // 메인화면
         }
     }
 
-    var ckTimeJob = CoroutineScope(Dispatchers.Default).launch {
+    var ckTimeJob = CoroutineScope(Dispatchers.Default).launch {    // 시간 체크 코루틴
         var currentTime = LocalDateTime.now()
         var formatter = DateTimeFormatter.ofPattern("HH")
-        var formatted = currentTime.format(formatter)
+        var formatted = currentTime.format(formatter)                               // 현재 시간을 "13" 과 같은 형식으로 출력해서 foramtted에 초기화
 
-        while (14 <= formatted.toInt() && formatted.toInt() < 15){
+        while (14 <= formatted.toInt() && formatted.toInt() < 15){                  // 14~15시에는 안내 후 시스템 종료
             println("14시부터 15시까지는 점검 시간입니다. 지금은 사용하실수 없습니다.")
             delay(5000)
             System.exit(0)
         }
     }
 
-    if (WaitingNumber.waitingNum == 0){
+    if (WaitingNumber.waitingNum == 0){                                             // 대기번호가 0일때만 시작
         var coroutineJob = CoroutineScope(Dispatchers.Default).launch {
             while (true) {
                 delay(8000)
                 println()
                 println("현재 주문 대기수 : ${WaitingNumber.numOfPeopleWaiting}")
                 print(" 대기번호 : ")
-                for (i in 0..WaitingNumber.numOfPeopleWaiting - 1) {
+                for (i in 0..WaitingNumber.numOfPeopleWaiting - 1) {          // 대기번호 : 1번 2번... 식으로 출력
                     print("${WaitingNumber.waitingNumList.get(i)}번 ")
 
                 }
@@ -85,6 +85,5 @@ fun main() {    // 메인화면
     runBlocking {
         mainJob.join()
         ckTimeJob.join()
-        // coroutineJob까지 여기에 쓰면 coroutineJob이 중첩으로 실행됨
     }
 }
