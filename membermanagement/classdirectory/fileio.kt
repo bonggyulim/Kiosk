@@ -16,5 +16,4 @@ fun writeloginInfo() {
 
     File(path).bufferedWriter().use{ it.write(str) }
 }
-
 */
